@@ -2,11 +2,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Button, View } from 'react-native';
 
-import Home from './scr/screens/Home/Home';
-import Login from './scr/screens/Login/Login';
-import Cadastrar from './scr/screens/Cadastrar/Cadastrar';
-import User from './scr/screens/User/User';
-import EditChat from './scr/screens/EditChat/EditChat';
+import Home from './src/screens/Home/Home';
+import Login from './src/screens/Login/Login';
+import Cadastrar from './src/screens/Cadastrar/Cadastrar';
+import User from './src/screens/User/User';
+import EditChat from './src/screens/EditChat/EditChat';
 
 const Stack = createNativeStackNavigator();
 
