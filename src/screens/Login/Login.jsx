@@ -25,17 +25,19 @@ export default function Login({ navigation }) {
     const [showPassword, setShowPassword] = useState(true)
 
 
+    const getData = async () => {
+        try {
+          const value = await AsyncStorage.getItem('email');
+          if (value !== null) {
+            setEmail(value)
+          }
+        } catch (e) {
+          console.error(e)
+        }
+      };
+
     useEffect(() => {
-        const getData = async () => {
-            try {
-                const jsonValue = await AsyncStorage.getItem('user');
-                return jsonValue != null ? JSON.parse(jsonValue) : null;
-            } catch (e) {
-                console.log(e)
-            }
-        };
-        const data = getData();
-        data.email && setEmail(data.email)
+        getData();
     }, [])
 
     function signIn() {

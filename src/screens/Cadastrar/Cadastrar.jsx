@@ -23,20 +23,19 @@ export default function Cadastrar({ navigation }) {
     const [showPassword, setShowPassword] = useState(true)
     const [showConfirmPassword, setShowConfirmPassword] = useState(true)
 
-    const storeData = async (value) => {
+    const storeData = async () => {
         try {
-            const jsonValue = JSON.stringify(value);
-            await AsyncStorage.setItem('user', jsonValue);
+          await AsyncStorage.setItem('email', email);
         } catch (e) {
-            console.log(e)
+          // saving error
         }
-    };
-
+      };
     async function signUp() {
         setError('')
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, senha)
             const user = userCredential.user
+            storeData()
             await new Promise((resolve, reject) => {
                 updateProfile(user, {
                     displayName: `${nome} ${sobrenome}`,
