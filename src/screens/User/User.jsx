@@ -1,10 +1,8 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, Linking } from 'react-native'
 import { getChatsByUserId } from '../../actions/chats'
 import React, { useEffect, useState } from 'react'
 
 import Styles from './Styles'
-
-const API_BASE_URL = "https://southamerica-east1-codai-development.cloudfunctions.net/codai"
 
 export default function User({ route, navigation }) {
   const user = route.params.user
@@ -13,12 +11,18 @@ export default function User({ route, navigation }) {
   const [textLinkSite, setTextLinkSite] = useState('')
   const [chats, setChats] = useState(null)
 
+  const openURL = () => {
+    const url = 'https://codai-hub-development.web.app/';
+    Linking.openURL(url)
+      .catch((err) => console.error('Erro ao abrir a URL:', err));
+  };
+
   useEffect(() => {
     const chatsGet = async () => {
       const response = await getChatsByUserId(user)
       setLoading(false)
       if(response.data.length === 0) {
-        setTextNoChats('Você não tem chats, para criar chats entre no link:')
+        setTextNoChats('Você não tem chats, clique aqui para criar chats ou entre no link:')
         setTextLinkSite('codai-hub-development.web.app')
         setChats(null)
       } else {
@@ -46,8 +50,13 @@ export default function User({ route, navigation }) {
       ))
       : (
         <View>
-          <Text style={{color: '#fff', textAlign: 'center', marginTop: '30vh'}}>{textNoChats}</Text>
-          <Text style={{color: '#9CE5C9', textAlign: 'center', marginTop: 6 }}>{textLinkSite}</Text>
+          <TouchableOpacity onPress={(e) => {
+            e.preventDefault();
+            openURL();
+          }}>
+            <Text style={{color: '#fff', textAlign: 'center', marginTop: '30vh'}}>{textNoChats}</Text>
+            <Text style={{color: '#9CE5C9', textAlign: 'center', marginTop: 6 }}>{textLinkSite}</Text>
+          </TouchableOpacity>
         </View>
       )
     }

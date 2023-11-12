@@ -35,7 +35,8 @@ export default function Login({ navigation }) {
             }
         };
         const data = getData();
-        data.email && setEmail(data.email)
+        data?.email && setEmail(data.email)
+        data?.senha && setPassword(data.password)
     }, [])
 
     function signIn() {

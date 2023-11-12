@@ -1,4 +1,4 @@
-import { View, Text, ImageBackground, Button, TouchableOpacity, Image } from 'react-native'
+import { View, Text, ImageBackground, Linking, TouchableOpacity, Image } from 'react-native'
 import bgFuturistc from '../../../public/bg-futuristic.svg'
 import risk from '../../../public/vector-498.svg'
 import clock from '../../../public/clock.svg'
@@ -8,7 +8,14 @@ import Styles from './Styles'
 import CardHome from '../../components/CardHome/CardHome'
 import Footer from '../../components/Footer/Footer'
 
-export default function Home() {
+export default function Home({ navigation }) {
+
+  const openDemo = () => {
+    const url = 'https://www.youtube.com/watch?v=IDMh8szqQa4';
+    Linking.openURL(url)
+      .catch((err) => console.error('Erro ao abrir a URL:', err));
+  };
+
   return (
     <View style={Styles.container}>
       <View style={Styles.viewOne}>
@@ -16,8 +23,14 @@ export default function Home() {
           <Text style={Styles.textTitle}>Use o poder da <Text style={{ color: '#3E65CD' }}>IA Generativa</Text> e crie templates</Text>
           <Text style={Styles.textDefault}>Descubra como nossa tecnologia de IA generativa pode ajudar você a criar templates exclusivos e visualmente impressionantes para suas necessidades criativas.</Text>
           <View style={Styles.buttons}>
-            <TouchableOpacity style={Styles.buttonOne}><Text style={Styles.buttonOneText}>Comece a usar</Text></TouchableOpacity>
-            <TouchableOpacity style={Styles.buttonTwo}><Text style={Styles.buttonTwoText}>Assista a demonstração</Text></TouchableOpacity>
+            <TouchableOpacity onPress={e => {
+              e.preventDefault();
+              navigation.push('Login')
+            }} style={Styles.buttonOne}><Text style={Styles.buttonOneText}>Comece a usar</Text></TouchableOpacity>
+            <TouchableOpacity onPress={e => {
+              e.preventDefault();
+              openDemo()
+            }} style={Styles.buttonTwo}><Text style={Styles.buttonTwoText}>Assista a demonstração</Text></TouchableOpacity>
           </View>
         </ImageBackground>
       </View>
